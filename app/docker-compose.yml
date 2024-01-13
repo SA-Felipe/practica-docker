@@ -37,6 +37,21 @@ services:
     depends_on:
       - server
 
+  server-nginx:
+    container_name: servidor-nginx
+    build:
+      context: ./server-nginx/
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      myapp-network:
+        ipv4_address: 10.0.0.4
+      myapp-external:
+        ipv4_address: 10.0.1.4
 
 networks:
   myapp-external:
